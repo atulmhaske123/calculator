@@ -17,7 +17,7 @@ two numbers and returns the result.
 
 ## Implemented REST endpoint to perform simple/chain operations.
 - Supported operations are **ADD, SUBTRACT, MULTIPLY, and DIVIDE.**
-- To Perform **Simple sum operation** use below **POST** curl request. below request performing summation of 2 and 5,
+- To Perform **Simple sum operation** use below **POST** curl request. given request performing summation of 2 and 5,
   Here Initial is 2 and we performing add operation on it with operand 5. 
      ```ts
      curl --location 'http://localhost:8080/calculator/chain' \
