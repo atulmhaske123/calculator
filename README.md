@@ -1,9 +1,9 @@
 # flexible-calculator
 A simple, extensible calculator in Java that supports multiple operations.
 
-# Implemented REST endpoint to perform simple/chain operations.
-- 1. To Perform Simple sum operation Use Below Curl Request
-     ``
+## Implemented REST endpoint to perform simple/chain operations.
+- To Perform Simple sum operation Use Below Curl Request
+     ```ts
      curl --location 'http://localhost:8080/calculator/chain' \
       --header 'Content-Type: application/json' \
       --data '{
@@ -12,4 +12,4 @@ A simple, extensible calculator in Java that supports multiple operations.
               { "operation": "ADD", "operand": 5 }
           ]
       }'
-     ``
+     ```
