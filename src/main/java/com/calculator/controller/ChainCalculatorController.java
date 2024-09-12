@@ -3,15 +3,12 @@ package com.calculator.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.calculator.model.ChainRequest;
 import com.calculator.model.Response;
-import com.calculator.model.SimpleRequest;
 import com.calculator.service.Calculator;
 import com.calculator.strategy.CalculationStrategy;
-import com.calculator.strategy.impl.BasicStrategy;
 import com.calculator.strategy.impl.ChainStrategy;
 
 import jakarta.validation.Valid;

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.calculator.model.ErrorResponse;
-import com.calculator.model.Response;
 import com.calculator.operation.Operation;
 
 @ControllerAdvice
