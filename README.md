@@ -29,16 +29,16 @@
 	}
   ```
 ## Extensibility : How to add new operation like Power into application.
-- Modify ENUM Operation to support new operation.
-- Create new class which implements IOperation interface.
+- Modify the ENUM Operation to support new operation.
+- Create a new class which will implements IOperation interface.
 - Provide your calculation logic in newly added class under calculation method.
 - Thats Set !!! No need to modify any IF/ELSE or SWITCH case in application to support new operation.
   
 ## Extensibility : How to add new calculation strategy like priority based calculation.
-- Create new Strategy class which implements IStrategy.
+- Create a new Strategy class which will implements IStrategy inteface.
 - Add your algo logic in calculation method of newly added class.( like multiply/divide having more prority than add/subtract).
-- Create new Controller class which will extends CalculationController.
-- In newly added controller assign priority strategy to incoming requests.
+- Create a new Controller class which will extends CalculationController base class.
+- In the newly added controller assign priority strategy for incoming requests.
 - Thats Set !!! No need to modify any IF/ELSE or SWITCH case in application to support new calculation algo.
   
 ## How To Run?
