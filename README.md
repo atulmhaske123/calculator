@@ -1,15 +1,46 @@
-# flexible-calculator
-- A simple, extensible calculator in Java that supports multiple operations.
-- Added enum named as **Operation.java** that includes basic operations like ADD, SUBTRACT, MULTIPLY, and DIVIDE.
-- For each operation implemented seprate class with there own calculate method. like **AddOperation.java, DivideOperation.java, MultiplyOperation.java** etc..
-- Implemented a method **calculate(Operation op, Numbernum1, Number num2)** in the **Calculator.java** class that performs a single operation between
-two numbers and returns the result.
-- **Chaining Operations:** Implementd a method that allows chaining multiple operations on a single value, similar to how basic calculators work. This should enable users to start with an initial value and perform a series of operations sequentially. 
-- **Extensibility:** The Calculator class will allow new operations to be added without requiring changes to its existing code.
-- **IoC Compatibility:** Using SpringBoot Inversion of Control (IoC) capability to intialise bean.
-- **Error Handling:** The solution handled invalid operations gracefully.
-- **Testing:** Added unit tests to verify solution, including both normal cases and edge cases.
+# Flexible-calculator
 
+## Features
+- Support basic math operations like Addition, Sutraction, Divide & Multiplication.
+- Support REST for simple and chaining calculations.
+- Provided exception handling support.
+- Strong input validation.
+
+## Design follows strict open-close principle.
+
+![image](https://github.com/user-attachments/assets/6d497fba-17bf-429d-9487-6befd25faae9)
+
+- **Used java.lang.Number class to support all numeric data type :**
+    The abstract class Number is the superclass of classes BigDecimal, BigInteger, Byte, Double, Float, Integer, Long, and Short. So we dont need to check data type explicitly for each request.
+- **INFINITY is a valid response :**
+    cases like divide by zero or large number mutiplication which exceeding number class limits are considered as INFINITY response.
+- **Supported and verified all possible usecases using SpringJUnit4ClassRunner**
+  
+   ![image](https://github.com/user-attachments/assets/1c084668-4746-48b3-be75-5183c6e1cdab)
+- **Error Handling :** Used SpringBoot based global exception handling to handle possible exception in application.
+- **Validation :** Used jakarta.validation.constraints power to validate input request params.
+- **IoC Compatibility :** Used springboot's dependancy injecting capability extensivly within the application.
+  Below code make sure whatever operations are there will get injected into List<IOperation> operations. Even we added new operation like POWER in application, we dont have to make any kind of modification to inject bean here.
+  ```java
+    @Bean
+	public Map<Operation, IOperation> CalculatorOperations(List<IOperation> operations) {
+		return operations.stream()
+				.collect(Collectors.toMap(IOperation::getOperation, op -> op));
+	}
+  ```
+## Extensibility : How to add new operation like Power into application.
+- Modify ENUM Operation to support new operation.
+- Create new class which implements IOperation interface.
+- Provide your calculation logic in newly added class under calculation method.
+- Thats Set !!! No need to modify any IF/ELSE or SWITCH case in application to support new operation.
+  
+## Extensibility : How to add new calculation strategy like priority based calculation.
+- Create new Strategy class which implements IStrategy.
+- Add your algo logic in calculation method of newly added class.( like multiply/divide having more prority than add/subtract).
+- Create new Controller class which will extends CalculationController.
+- In newly added controller assign priority strategy to incoming requests.
+- Thats Set !!! No need to modify any IF/ELSE or SWITCH case in application to support new calculation algo.
+  
 ## How To Run?
 - Git clone current repo in your local machine.
 - Open Project in any IDE and Run the project as a java application. application will start on default port 8080.
@@ -17,16 +48,14 @@ two numbers and returns the result.
 
 ## Implemented REST endpoint to perform simple/chain operations.
 - Supported operations are **ADD, SUBTRACT, MULTIPLY, and DIVIDE.**
-- To Perform **Simple sum operation** use below **POST** curl request. given request performing summation of 2 and 5,
-  Here Initial is 2 and we performing add operation on it with operand 5. 
+- To Perform **Simple sum operation** use below **POST** curl request. given request performing summation of 999 and 1.
      ```ts
-     curl --location 'http://localhost:8080/calculator/chain' \
+     curl --location 'http://localhost:8080/calculator/v1/basic' \
       --header 'Content-Type: application/json' \
       --data '{
-          "initial": 2,
-          "chainOperations":[
-              { "operation": "ADD", "operand": 5 }
-          ]
+          "operation": "MULTIPLY",
+          "operand1": 999,
+          "operand2": 1
       }'
      ```
 
